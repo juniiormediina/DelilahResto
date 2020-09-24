@@ -1,0 +1,22 @@
+{
+  "name": "delilahresto",
+  "version": "1.0.0",
+  "description": "Backend para un sistema de pedidos online para un restaurante poniendo en funcionamiento las partes necesarias para montar una REST API que permita realizar operaciones CRUD sobre una estructura de datos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juniiormediina/DelilahResto.git"
+  },
+  "author": "Junior Medina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juniiormediina/DelilahResto/issues"
+  },
+  "homepage": "https://github.com/juniiormediina/DelilahResto#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
