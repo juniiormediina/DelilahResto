@@ -1,0 +1,2 @@
+CREATE DATABASE 'delilah_resto' 
+    DEFAULT CHARACTER SET utf8 ;
