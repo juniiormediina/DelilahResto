@@ -22,7 +22,7 @@ const userModel = sequelize.define(
         },
         phone: {
             allowNull: false,
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         address:{
             allowNull: false,

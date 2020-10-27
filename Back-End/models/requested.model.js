@@ -2,6 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../models/index');
+const userModel = require('./user.model');
 
 const requestModel = sequelize.define(
 	'requests',
@@ -12,17 +13,17 @@ const requestModel = sequelize.define(
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        id_user: {
+        /* id_user: {
             allowNull: false,
             type: DataTypes.STRING
-        }, 
+        }, */ 
         status: {
             allowNull: false,
             type: DataTypes.CHAR
         },
         Payment_method: {
             allowNull: false,
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
 	},{
         timestamps: true,
@@ -30,5 +31,8 @@ const requestModel = sequelize.define(
     }
 
 );
+
+userModel.hasMany(requestModel);
+requestModel.belongsTo(userModel);
 
 module.exports = requestModel;

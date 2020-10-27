@@ -7,14 +7,14 @@ const signup = (data) => {
 			rejc({ status: 400, message: 'Faltan campos, por favor envielos' });
 		} else {
 			userModel.create(data).then((user) => {
-					res(user);
-				}).catch((error) => {
-					if (error.fields.email) {
-						rejc({ status: 400, message: 'Este email ya esta registrado' });
-					} else {
-						rejc({ status: 500, message: 'UPS!! tenemos problemas intenta de nuevo mas tarde' });
-					}
-				});
+				res(user);
+			}).catch((err) => {
+				if (err.fields.email) {
+					rejc({ status: 400, message: 'Este email ya esta registrado' });
+				} else {
+					rejc({ status: 500, message: 'UPS!! tenemos problemas intenta de nuevo mas tarde' });
+				}
+			});
 		}
 	});
 };
