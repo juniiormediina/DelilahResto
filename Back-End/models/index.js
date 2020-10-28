@@ -4,12 +4,12 @@ require('dotenv').config();
 const sequelize = new Sequelize('delilah_resto', process.env.USER, process.env.PASS,{
     host: 'localhost',
     dialect: 'mysql',
-    define:{
+    /* define:{
         freezeTableName: true,
     },
     query:{
         raw:true,
-    }
+    } */
 });
 
 sequelize.authenticate().then(()=>{

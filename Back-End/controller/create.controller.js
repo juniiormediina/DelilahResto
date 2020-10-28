@@ -1,4 +1,5 @@
-const requestModel = require('../models/requested.model');
+const requestModel = require('../models/request.model');
+const productModel = require('../models/product.model');
 
 const createRequest = (data) => {
 	return new Promise((res, rejc) => {
@@ -6,7 +7,9 @@ const createRequest = (data) => {
             const { products, ...request } = data;
 			requestModel.create(request).then(async(request) => {
 				try {
-					await request.addProducts(products);
+					products.forEach(async(product) => {
+						await request.addProducts(product.id, { through: { quantity: product.quantity } });
+					});
 					res(request);
 				} catch (error) {
 					console.log(request.id);
@@ -22,5 +25,17 @@ const createRequest = (data) => {
 	});
 };
 
-module.exports = createRequest;
+const createProduct = (data) => {
+	return new Promise((res, rejc)=>{
+		productModel.create(data).then((response)=>{
+			res(response);
+		}).catch((err)=>{
+			rejc({ status: 500, message: 'Intentalo nuevamente' });
+		});
+	});
+};
 
+module.exports = {
+	createRequest,
+	createProduct
+};

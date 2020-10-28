@@ -9,9 +9,9 @@ const app = express();
 const database = require('./models/index');
 const userModel = require('./models/user.model');
 userModel.sync();
-const requestModel = require('./models/requested.model');
+const requestModel = require('./models/request.model');
 requestModel.sync();
-const productModel = require('./models/products.model');
+const productModel = require('./models/product.model');
 productModel.sync();
 const orderModel = require('./models/order.model');
 orderModel.sync();
@@ -24,11 +24,19 @@ app.use(express.json());
 app.use(helmet());
 
 /* Routes */
-app.use(require('./routes/login.routes'));
-app.use(require('./routes/signup.routes'));
-app.use(require('./routes/products.routes'));
+app.use(require('./routes/users/login.routes'));
+app.use(require('./routes/users/signup.routes'));
+app.use(require('./routes/products/products.routes'));
+app.use(require('./routes/products/createProduct.routes'));
+app.use(require('./routes/products/findProduct.routes'));
+app.use(require('./routes/products/updateProduct.routes'));
+app.use(require('./routes/products/deleteProduct.routes'));
+app.use(require('./routes/requests/request.routes'));
+app.use(require('./routes/requests/createRequest.routes'));
+app.use(require('./routes/requests/findRequest.routes'));
+app.use(require('./routes/requests/updateRequest.routes'));
+app.use(require('./routes/requests/deleteRequest.routes'));
 app.use(require('./routes/order.routes'));
-app.use(require('./routes/createOrder.routes'));
 
 /* Starting the server */
 app.listen(app.get('port'), () => {

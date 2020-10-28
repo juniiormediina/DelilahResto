@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../models/index');
 
 const productModel = sequelize.define(
-	'products',
+	'product',
 	{
 		id: {
             allowNull: false,
@@ -22,7 +22,7 @@ const productModel = sequelize.define(
         },
         type: {
             allowNull: false,
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         price:{
             allowNull: false,
@@ -32,9 +32,10 @@ const productModel = sequelize.define(
           allowNull: false,
           type: DataTypes.STRING
         }
-    },{ 
+    },
+    { 
         timestamps: false,
-        tableName: 'products'
+        tableName: 'product'
     }
 );
 

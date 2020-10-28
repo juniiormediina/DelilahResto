@@ -1,15 +1,15 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../models/index');
-const modelProducts = require('./products.model');
-const modelRequests = require('./requested.model');
+const modelProducts = require('./product.model');
+const modelRequests = require('./request.model');
 
 const orderModel = sequelize.define(
 	'order',
 	{
-		/* quantity: {
+		quantity: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-		}, */
+		},
 	},
 	{ 
 		timestamps: true,

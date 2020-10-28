@@ -1,11 +1,10 @@
 const express = require('express');
-const authentication = require('../middlewares/authentication.middleware');
-//importar el middleware correcto
 const router = express.Router();
-const productsModel = require('../models/products.model');
+const productModel = require('../../models/product.model');
+const authentication = require('../../middlewares/authentication.middleware');
 
 router.get('/productsList', authentication, (req, res)=>{
-    productsModel.findAll().then((products)=>{
+    productModel.findAll().then((products)=>{
         res.status(200).json(products);
     }).catch((err)=>{
         res.status(500);

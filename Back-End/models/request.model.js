@@ -19,13 +19,14 @@ const requestModel = sequelize.define(
         }, */ 
         status: {
             allowNull: false,
-            type: DataTypes.CHAR
+            type: DataTypes.STRING
         },
         Payment_method: {
             allowNull: false,
             type: DataTypes.STRING
         },
-	},{
+    },
+    {
         timestamps: true,
         tableName: 'requests'
     }

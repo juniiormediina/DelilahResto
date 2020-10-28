@@ -14,11 +14,11 @@ const userModel = sequelize.define(
         },
         firstname: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(50)
         }, 
         lastname: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(50)
         },
         phone: {
             allowNull: false,
@@ -26,22 +26,24 @@ const userModel = sequelize.define(
         },
         address:{
             allowNull: false,
-            type: DataTypes.STRING 
+            type: DataTypes.STRING(100)
         },
         email: {
           allowNull: false,
-          type: DataTypes.STRING
+          type: DataTypes.STRING(50)
         },
         pass: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(20)
         },
         rol:{
             allowNull: false,
             type: DataTypes.STRING
         },
-	},{ timestamps: false,
-    tableName: 'user'
+    },
+    {
+        timestamps: false,
+        tableName: 'user'
     }
 );
 
