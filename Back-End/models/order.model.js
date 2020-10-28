@@ -7,8 +7,8 @@ const orderModel = sequelize.define(
 	'order',
 	{
 		quantity: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
+			type: DataTypes.INTEGER(10),
+			allowNull: false
 		},
 	},
 	{ 

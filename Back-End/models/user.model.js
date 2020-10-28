@@ -10,7 +10,7 @@ const userModel = sequelize.define(
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.SMALLINT
+            type: DataTypes.INTEGER(10)
         },
         firstname: {
             allowNull: false,
@@ -22,7 +22,7 @@ const userModel = sequelize.define(
         },
         phone: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(15)
         },
         address:{
             allowNull: false,
@@ -38,7 +38,7 @@ const userModel = sequelize.define(
         },
         rol:{
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(10)
         },
     },
     {

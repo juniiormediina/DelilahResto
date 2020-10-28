@@ -10,11 +10,11 @@ const productModel = sequelize.define(
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.SMALLINT
+            type: DataTypes.INTEGER(10)
         },
         name: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(50)
         }, 
         description: {
             allowNull: false,
@@ -22,15 +22,15 @@ const productModel = sequelize.define(
         },
         type: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(20)
         },
         price:{
             allowNull: false,
-            type: DataTypes.STRING 
+            type: DataTypes.STRING(20)
         },
         image: {
           allowNull: false,
-          type: DataTypes.STRING
+          type: DataTypes.STRING()
         }
     },
     { 

@@ -11,19 +11,15 @@ const requestModel = sequelize.define(
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER(10)
         },
-        /* id_user: {
-            allowNull: false,
-            type: DataTypes.STRING
-        }, */ 
         status: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(50)
         },
         Payment_method: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.STRING(30)
         },
     },
     {

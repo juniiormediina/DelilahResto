@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-const sequelize = new Sequelize('delilah_resto', process.env.USER, process.env.PASS,{
+const sequelize = new Sequelize(process.env.NAME_DB, process.env.USER, process.env.PASS,{
     host: 'localhost',
     dialect: 'mysql',
     /* define:{

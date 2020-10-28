@@ -18,7 +18,6 @@ const deleteProducts = (id) => {
 const deleteRequest = (id) =>{
 	return new Promise((res, rejc) => {
 		requestModel.destroy({ where: { id: id } }).then((response) => {
-			console.log(response)
 			if (response === 1) {
 				res('request eliminado');
 			} else {
