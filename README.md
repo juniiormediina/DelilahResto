@@ -39,7 +39,7 @@ A continuación encontraras una serie de pasos que te dicen lo que debes ejecuta
 
 Este paso es totalmente opcional ya que te facilita una pequeña base de datos de pruebas
 
-1. Desde tu montor de base de datos ejecuta el archivo **database.sql** ubicado dentro de la carpeta Back-End.
+1. Desde tu montor de base de datos ejecuta el archivo [**database.sql**]('./Back-End/database.sql') ubicado dentro de la carpeta Back-End.
 
 Ahora una vez el proyecto desde tu editor de texto, abra la terminal de VsCode, asegurese de estar en la ruta de la carpeta Back-End y ejecute la siguiente linea de comando
 
@@ -50,8 +50,8 @@ npm install
 Ya instaladas todas las dependencias necesarias para el proyecto; vamos a crear un archivo dentro de la misma carpeta de Back-End llamado ".env" donde va a colocar la siguiente informacion
 
 ```
-USER = aquí su usuario de base de datos
-PASS = aqui su contraseña de base de datos
+USER = aquí coloque su usuario de base de datos
+PASS = aqui coloque su contraseña de base de datos
 
 NAME_DB = delilah_resto
 
@@ -68,7 +68,7 @@ En este punto tu aplicacion debe de estar completamente funcional.
 
 ## Ejecutando las pruebas ⚙️
 
-Explica como ejecutar las pruebas automatizadas para este sistema
+Para ejecución podrias consultar el archivo [.yaml]('./Back-End/.yaml')
 
 ## Licencia 📄
 
