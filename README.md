@@ -68,7 +68,9 @@ En este punto tu aplicacion debe de estar completamente funcional.
 
 ## Ejecutando las pruebas ⚙️
 
-Para conocer más sobre la ejecución de pruebas, podrias consultar el archivo [**.yaml**](https://github.com/juniiormediina/DelilahResto/blob/master/Back-End/.yaml).
+Para conocer más sobre la ejecución de pruebas, podrias consultar el archivo [**spec.yaml**](https://github.com/juniiormediina/DelilahResto/blob/master/Back-End/spec.yaml).
+
+También podran encontrar un archivo llamado [DelilahResto.postman_collection.json](https://github.com/juniiormediina/DelilahResto/blob/master/Back-End/DelilahResto.postman_collection.json) El cual tienen la posibilidad de importarlo en su Postman con la finalidad de facilitar las pruebas de los diferentes EndPoints de nuestra API
 
 ## Licencia 📄
 
