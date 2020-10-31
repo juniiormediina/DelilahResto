@@ -6,43 +6,43 @@ CREATE DATABASE `delilah_resto` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ /*!800
 
 DROP TABLE IF EXISTS `delilah_resto`.`user`;
 CREATE TABLE `delilah_resto`.`user`
-(   
-    `id` smallint NOT NULL AUTO_INCREMENT,
+(
+    `id` int NOT NULL AUTO_INCREMENT,
     `firstname` varchar(50) NOT NULL,
     `lastname` varchar(50) NOT NULL,
-    `phone` varchar(255) NOT NULL,
+    `phone` varchar(15) NOT NULL,
     `address` varchar(100) NOT NULL,
     `email` varchar(50) NOT NULL,
     `pass` varchar(20) NOT NULL,
-    `rol` varchar(255) NOT NULL,
-    PRIMARY KEY(`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+    `rol` varchar(10) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `delilah_resto`.`product`;
 CREATE TABLE `delilah_resto`.`product` 
 (
-    `id` smallint NOT NULL AUTO_INCREMENT,
-    `name` varchar(60) NOT NULL,
+    `id` int NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) NOT NULL,
     `description` varchar(255) NOT NULL,
-    `type` varchar(255) NOT NULL,
+    `type` varchar(20) NOT NULL,
     `price` varchar(20) NOT NULL,
     `image` varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `delilah_resto`.`requests`;
 CREATE TABLE `delilah_resto`.`requests` 
 (
     `id` int NOT NULL AUTO_INCREMENT,
-    `status` varchar(255) NOT NULL,
-    `Payment_method` varchar(255) NOT NULL,
+    `status` varchar(50) NOT NULL,
+    `Payment_method` varchar(30) NOT NULL,
     `createdAt` datetime NOT NULL,
     `updatedAt` datetime NOT NULL,
-    `userId` smallint DEFAULT NULL,
+    `userId` int DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `userId` (`userId`),
     CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS `delilah_resto`.`order`;
 CREATE TABLE `delilah_resto`.`order` 
@@ -50,13 +50,13 @@ CREATE TABLE `delilah_resto`.`order`
     `quantity` int NOT NULL,
     `createdAt` datetime NOT NULL,
     `updatedAt` datetime NOT NULL,
-    `productId` smallint NOT NULL,
+    `productId` int NOT NULL,
     `requestId` int NOT NULL,
     PRIMARY KEY (`productId`,`requestId`),
     KEY `requestId` (`requestId`),
     CONSTRAINT `order_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `order_ibfk_2` FOREIGN KEY (`requestId`) REFERENCES `requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 /* Se ingresa informacion minima a las tablas para el funcionamiento */

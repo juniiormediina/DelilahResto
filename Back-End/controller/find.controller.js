@@ -10,8 +10,8 @@ const findRequest = (id) => {
 		} else {
 			requestModel.findAll({ where: { id: id }, include: [productModel, userModel], raw: true, nest: true }).then(async(response) => {
 				await res(response);
-			}).catch((error) => {
-				console.log(error);
+			}).catch((err) => {
+				console.log(err);
 			});
 		}
 	});

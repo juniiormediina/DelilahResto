@@ -11,13 +11,13 @@ const createRequest = (data) => {
 						await request.addProducts(product.id, { through: { quantity: product.quantity } });
 					});
 					res(request);
-				} catch (error) {
+				} catch (err) {
 					console.log(request.id);
 					await requestModel.destroy({ where: { id: request.id } });
 					rejc({ status: 500, message: 'No se pudo crear la orden' });
 				}
-			}).catch((error) => {
-				console.log(error);
+			}).catch((err) => {
+				console.log(err);
 			});
 		} else {
 			rejc({ status: 400, message: 'Campos enviados no validos' });

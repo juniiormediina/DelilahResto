@@ -1,0 +1,496 @@
+openapi: 3.0.1
+info:
+  title: Delilah Restó
+  description: Backend para un sistema de pedidos online para un restaurante poniendo
+    en funcionamiento las partes necesarias para montar una REST API que permita realizar
+    operaciones CRUD sobre una estructura de datos.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: juniiormediina@gmail.com
+  license:
+    name: MIT
+    url: https://github.com/juniiormediina/DelilahResto/blob/master/LICENSE
+  version: 1.0.0
+servers:
+- url: http://localhost:3000/
+tags:
+- name: Create User
+  description: Everything about your Pets
+- name: Login User
+  description: Access to Petstore orders
+- name: Create Product
+  description: Operations about user
+- name: Find Products by ID
+  description: Operations about user
+- name: Update Products by ID
+  description: Operations about user
+- name: Delete Products by ID
+  description: Operations about user
+- name: Get Products
+  description: Operations about user
+- name: Create Request
+  description: Operations about user
+- name: Find Requests by ID
+  description: Operations about user
+- name: Update Requests by ID
+  description: Operations about user
+- name: Delete Requests by ID
+  description: Operations about user
+- name: Get Requests
+  description: Operations about user
+- name: Get Orders
+  description: Operations about user
+paths:
+  /singup:
+    post:
+      tags:
+      - Create User
+      summary: Creación y registro de usuarios
+      operationId: addUser
+      requestBody:
+        description: Datos del usuario a registrar
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Create_User'
+        required: true
+      responses:
+        200:
+          description: Nos da como resultado los datos del usuario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Create_User' 
+        400:
+          description: Este email ya esta registrado, Si ya se encuentra registrado
+            por favor intente iniciar sesion
+        406:
+          description: Faltan campos por rellenar, por favor envie todos los campos
+            requeridos
+        500:
+          description: Tenemos un problema interno, Intento de nuevo mas tarde
+      security:
+      - bearerAuth: []
+  /login:
+    post:
+      tags:
+      - Login User
+      summary: Ingreso para usuarios registrados
+      operationId: loginUser
+      requestBody:
+        description: Ingresar el email y constraseña registrado
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login_User'
+        required: true
+      responses:
+        200:
+          description: Nos devuelve el JWT de acceso del user
+          content:
+            application/json:
+              schema:
+                example: '"yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSnVuaW9yIiwibGFzdG5hbWUiOiJNZWRpbmEiLCJwaG9uZSI6IjMxNzI5MjIyNzUiLCJhZGRyZXNzIjoiY2wgMSAjIDIgLSAzMCIsImVtWlsIjoianVuaW9yQGdtYWlsLmNvbSIsInBhc3MiOiIxMjM0Iiwicm9sIjoiYWRtaW4iLCJpYXQiOjE2MDQwMjkzNzJ9.Xcpmu_WqlUsr1DXQHt0y0fynDkj7wjTFzpjo78GiDS8asda"'
+        400:
+          description: el usuario con email ENVIADO no existe
+        401:
+          description: Usuario o contraseña invalidos
+        406:
+          description: Faltan campos por rellenar, por favor envie todos los campos
+            requeridos
+      security:
+      - bearerAuth: []
+  /createProducts:
+    post:
+      tags:
+      - Create Product
+      summary: Crear un nuevo producto
+      operationId: createProduct
+      requestBody:
+        description: Ingrese los datos requeridos para crear un producto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Create_Product'
+        required: true
+      responses:
+        200:
+          description: Nos da como resultado los datos del producto creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Create_Product'
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        406:
+          description: Por favor llene todos los campos
+        500:
+          description: Poseemos problemas, por favor intenta mas tarde
+      security:
+      - bearerAuth: []
+  /findProducts/{productId}:
+    get:
+      tags:
+      - Find Products by ID
+      summary: Find pet by ID
+      operationId: FindPoductsById
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to find
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Responde un objeto con los datos del producto buscado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Create_Product'
+        404:
+          description: Product not found
+      security:
+      - bearerAuth: []
+  /updateProducts/{productId}:
+    put:
+      tags:
+      - Update Products by ID
+      summary: Actualizar producto por ID
+      operationId: updateProduct
+      parameters:
+      - name: productId
+        in: path
+        description: ID of product to update
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Update_Product'
+        required: true 
+      responses:
+        200:
+          description: La respuesta es la confirmacion de que el producto ha sido actualizado
+          content:
+            application/json:
+              schema:
+                example: "Producto actualizado"
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+          content: {}
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        404:
+          description: Datos no encontrados, no se Pudo actualizar el producto.
+        500:
+          description: intente de nuevo mas tarde.
+      security:
+      - bearerAuth: []
+  /deletePoducts/{productId}:
+    delete:
+      tags:
+      - Delete Products by ID
+      summary: Eliminar un producto por ID
+      operationId: deleteProduct
+      parameters:
+      - name: productId
+        in: path
+        description: Id del producto a eliminar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: La respuesta es la confirmacion de que el producto ha sido eliminado satisfactoriamente
+          content:
+            application/json:
+              schema:
+                example: '"Producto Eliminado"'
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        404:
+          description: Producto no encontrado, por favor verifique
+        500:
+          description: Poseemos problemas, por favor intenta mas tarde
+      security:
+      - bearerAuth: []
+  /productsList:
+    get:
+      tags:
+      - Get Products
+      summary: Obtener una lista de los productos registrados
+      operationId: getProductList
+      responses:
+        200:
+          description: Consulta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Create_Product'
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        500:
+          description: Error interno
+      security:
+      - bearerAuth: []
+  /CreateRequest:
+    post:
+      tags:
+      - Create Request
+      summary: Crear un pedido
+      operationId: getOrderById
+      requestBody:
+        description: Es neceario el envio de los datos requeridos
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Create_Request'
+        required: true
+      responses:
+        200:
+          description: Nos trae como respuesta el resultado del pedido creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_Create_Request'
+        400:
+          description: Usuario no se pudo verificar
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        406:
+          description: Campos enviados no válidos
+        500:
+          description: Error interno, no se pudo crear la orden
+      security:
+      - bearerAuth: []
+  /findRequest/{requestId}:
+    get:
+      tags:
+      - Find Requests by ID
+      summary: Actualizar el estado de un pedido
+      operationId: FindRequestById
+      parameters:
+      - name: requestId
+        in: path
+        description: Id del pedido a actualizar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+            description: Responde un objeto con los datos del producto buscado
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Create_Request'
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        404:
+          description: Datos no encontrados, no se pudo actualizar tu pedido.
+        406:
+          description: Campos no validos
+        500:
+          description: Por favor intente mas tarde
+      security:
+      - bearerAuth: []
+  /updateRequest/{requestId}:
+    put:
+      tags:
+      - Update Requests by ID
+      summary: Actualizar el estado de un pedido
+      operationId: updateRequest
+      parameters:
+      - name: requestId
+        in: path
+        description: Id del pedido a actualizar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: La respuesta es la confirmacion de que el pedido ha sido actualizado
+          content:
+            application/json:
+              schema:
+                example: "Pedido actualizado"
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        404:
+          description: Datos no encontrados, no se pudo actualizar tu pedido.
+        406:
+          description: Campos ingresados no validos
+        500:
+          description: Por favor intente mas tarde
+      security:
+      - bearerAuth: []
+  /deleteRequest/{requestId}:
+    delete:
+      tags:
+      - Delete Requests by ID
+      summary: Eliminar un pedido por ID
+      operationId: deleteRequest
+      parameters:
+      - name: requestId
+        in: path
+        description: Id del pedido a eliminar
+        required: true
+        schema:
+          type: integer
+      responses:
+        200:
+          description: Pedido eliminado satisfactoriamente
+          content:
+            application/json:
+              schema:
+                example: '"Pedido eliminado"'
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        403:
+          description: Debes tener permisos de administrador para realizar esta petición
+        404:
+          description: Pedido no encontrado, por favor verifique
+        500:
+          description: Poseemos problemas, por favor intenta mas tarde
+      security:
+      - bearerAuth: []
+  /requests:
+    get:
+      tags:
+      - Get Requests
+      summary: obtener todos los pedidosrealizados
+      operationId: getRequest
+      responses:
+        200:
+          description: Nos responde un objeto que contiene todos los pedidos generados
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        500:
+          description: Error interno
+      security:
+      - bearerAuth: []
+  /orders:
+    get:
+      tags:
+      - Get Orders
+      summary: Logs out current logged in user session
+      operationId: logoutUser
+      responses:
+        200:
+          description: nos responde un objeto con todos las ordenes generadas
+          content:
+            application/json:
+              schema:
+                type: object
+        401:
+          description: Debes ingresar con tu usuario y contraseña para utilizar este
+            servicio
+        500:
+          description: Error interno
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    Create_User:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        email:
+          type: string
+        pass:
+          type: string
+        rol:
+          type: string
+    Login_User:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    Create_Request:
+      type: object
+      properties:
+        payment_method:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: integer
+              quantity:
+                type: integer
+        userId:
+          type: integer
+    Response_Create_Request:
+      type: object
+      properties:
+        id:
+          type: integer
+        Payment_method:
+          type: string
+        userId:
+          type: integer
+        status:
+          type: integer
+        updatedAt:
+          type: string
+        createdAt:
+          type: string
+    Create_Product:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        price:
+          type: string
+        image:
+          type: string
+    Update_Product:
+      type: object
+      properties:
+        price:
+          type: string 
+          
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

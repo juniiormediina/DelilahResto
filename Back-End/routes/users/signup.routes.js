@@ -3,11 +3,11 @@ const signup = require('../../controller/signup.controller');
 const router = express.Router();
 
 router.post('/signup', (req, res) => {
-	const reqUser = req.body;
-	signup(reqUser).then((user) => {
+	const user = req.body;
+	signup(user).then((user) => {
 		res.sendStatus(200).json(user);
-	}).catch((error) => {
-		res.status(error.status).json(error.message);
+	}).catch((err) => {
+		res.status(err.status).json(err.message);
 	});
 });
 

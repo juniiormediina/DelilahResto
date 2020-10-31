@@ -3,13 +3,7 @@ require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.NAME_DB, process.env.USER, process.env.PASS,{
     host: 'localhost',
-    dialect: 'mysql',
-    /* define:{
-        freezeTableName: true,
-    },
-    query:{
-        raw:true,
-    } */
+    dialect: 'mysql'
 });
 
 sequelize.authenticate().then(()=>{

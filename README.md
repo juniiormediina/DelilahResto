@@ -61,7 +61,7 @@ JWT_SECRET = aquí coloque una palabra secreta
 Ya desde la terminal ejecuta la siguiente liena de comando
 
 ```
-npm star
+npm start
 ```
 
 En este punto tu aplicacion debe de estar completamente funcional.
@@ -72,7 +72,7 @@ Para conocer más sobre la ejecución de pruebas, podrias consultar el archivo [
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md]('./LICENSE') para detalles
+Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE.md](https://github.com/juniiormediina/DelilahResto/blob/master/LICENSE) para detalles
 
 ---
 
