@@ -1,16 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const orderModel = require('../models/order.model');
-const authorization = require('../middlewares/authorization.middleware');
-const authentication = require('../middlewares/authentication.middleware');
 
-router.get('/orders', authentication, authorization, (__, res)=>{
-    orderModel.findAll().then((orders)=>{
-        res.status(200).json(orders);
-    }).catch((err)=>{
-        res.status(500);
-    });
+const authorization = require("../middlewares/authorization.middleware");
+const authentication = require("../middlewares/authentication.middleware");
+
+const find = require("../controller/Order.controller");
+
+router.get("/find", authentication, authorization, (req, res) => {
+  find(req, res);
 });
-
 
 module.exports = router;

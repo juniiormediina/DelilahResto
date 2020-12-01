@@ -1,12 +1,14 @@
-
-
-const authorization = (req, res, next) => {
-	const { rol } = req.usuario;
-	if(rol !== 'admin'){
-		res.status(401).json('no tienes permisos para acceder');
-	}else{
-		next();
-	}
+const authorization = async (req, res, next) => {
+  const { profile } = req.profile;
+  if (profile !== "Administrator") {
+    res
+      .status(401)
+      .json(
+        "You don't have profiles of administrator to continue with this action"
+      );
+  } else {
+    next();
+  }
 };
 
 module.exports = authorization;

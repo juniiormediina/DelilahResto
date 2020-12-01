@@ -13,8 +13,8 @@ CREATE TABLE `delilah_resto`.`user`
     `phone` varchar(15) NOT NULL,
     `address` varchar(100) NOT NULL,
     `email` varchar(50) NOT NULL,
-    `pass` varchar(20) NOT NULL,
-    `rol` varchar(10) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `profile` varchar(50) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -62,15 +62,26 @@ CREATE TABLE `delilah_resto`.`order`
 /* Se ingresa informacion minima a las tablas para el funcionamiento */
 
 INSERT INTO `delilah_resto`.`user`
-    (`id`,`firstname`,`lastname`,`phone`,`address`,`email`,`pass`,`rol`)
+    (`id`,
+    `firstname`,
+    `lastname`,
+    `phone`,
+    `address`,
+    `email`,
+    `password`,
+    `profile`)
 VALUES
-    ('1','Fulano','Zutano','3002552505','Cl 1 # 2 - 3, Medellin','fulano@correo.com','1234','Admin'),
-    ('2','Mengano','Zutano','3002552505','Cl 1 # 2 - 3, Medellin','mengano@correo.com','1234','Empleado'),
-    ('3','Perencejo','Zutano','3002552505','Cl 1 # 2 - 3, Medellin','perencejo@correo.com','1234','usuario');
+    ('1','Fulano','Zutano','3002552505','Cl 1 # 2 - 3, Medellin','fulano@correo.com','$2a$10$CAaRPazBdzqwJ1fcXHnse.hgVbwVvrqvZrcZ.7lmWnFXg33vMerSG','Administrator'),
+    ('3','Perencejo','Zutano','3002552505','Cl 1 # 2 - 3, Medellin','perencejo@correo.com','$2a$10$3T/c1T14qZoPMtXj7atp0u.86ylw9qNT4PSN49Bhx4h/CNtMfJlsC','User');
 
 
 INSERT INTO `delilah_resto`.`product`
-(`id`,`name`,`description`,`type`,`price`,`image`)
+(`id`,
+`name`,
+`description`,
+`type`,
+`price`,
+`image`)
 VALUES
     ('1', 'Pizza', 'Margarita', '1', '30', 'no disponible'),
     ('2', 'Pizza', 'Hawaina', '2', '20', 'no disponible'),
@@ -79,7 +90,12 @@ VALUES
     ('5', 'Pizza', 'Romana', '5', '30', 'no disponible');
 
 INSERT INTO `delilah_resto`.`requests`
-    (`id`,`status`,`Payment_method`,`createdAt`,`updatedAt`,`userId`)
+    (`id`,
+    `status`,
+    `Payment_method`,
+    `createdAt`,
+    `updatedAt`,
+    `userId`)
 VALUES
     ('1','nuevo','Efectivo','2020-10-28 00:50:48','2020-10-28 01:38:03','1'),
     ('2','nuevo','Tarjeta de Credito','2020-10-28 00:50:48','2020-10-28 01:38:03','1'),
@@ -88,7 +104,11 @@ VALUES
     ('5','nuevo','Efectivo','2020-10-28 00:50:48','2020-10-28 01:38:03','1');
 
 INSERT INTO `delilah_resto`.`order`
-    (`quantity`,`createdAt`,`updatedAt`,`productId`,`requestId`)
+    (`quantity`,
+    `createdAt`,
+    `updatedAt`,
+    `productId`,
+    `requestId`)
 VALUES
     ('3','2020-10-28 03:19:03','2020-10-28 03:19:03','1','1'),
     ('3','2020-10-28 03:19:03','2020-10-28 03:19:03','3','2'),

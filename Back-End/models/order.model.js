@@ -1,23 +1,23 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../models/index');
-const modelProducts = require('./product.model');
-const modelRequests = require('./request.model');
+const { DataTypes } = require("sequelize");
+const sequelize = require("./index");
+const Products = require("./Product.model");
+const Requests = require("./Request.model");
 
 const orderModel = sequelize.define(
-	'order',
-	{
-		quantity: {
-			type: DataTypes.INTEGER(10),
-			allowNull: false
-		},
-	},
-	{ 
-		timestamps: true,
-		tableName: 'order'
-	}
+  "order",
+  {
+    quantity: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: true,
+    tableName: "order",
+  }
 );
 
-modelProducts.belongsToMany(modelRequests, {through: orderModel});
-modelRequests.belongsToMany(modelProducts, {through: orderModel});
+Products.belongsToMany(Requests, { through: orderModel });
+Requests.belongsToMany(Products, { through: orderModel });
 
 module.exports = orderModel;
