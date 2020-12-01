@@ -17,14 +17,18 @@ const createRequest = (data) => {
             res(request);
           } catch (err) {
             await Request.destroy({ where: { id: request.id } });
-            rejc({ status: 500, message: "No se pudo crear la orden" });
+            rejc({ status: 500, message: "The request could not be created" });
           }
         })
         .catch((err) => {
-          rejc({ status: 500, message: "vuelva a intentarlo luego" });
+          rejc({
+            status: 500,
+            message:
+              "Sorry, the server has presented an error. Try again later",
+          });
         });
     } else {
-      rejc({ status: 400, message: "Campos enviados no validos" });
+      rejc({ status: 400, message: "Invalid fields" });
     }
   });
 };
@@ -32,7 +36,7 @@ const createRequest = (data) => {
 const findRequest = (id) => {
   return new Promise((res, rejc) => {
     if (!id) {
-      rejc({ status: 400, message: "Faltan el id, por favor envielo" });
+      rejc({ status: 400, message: "Please fill all fields" });
     } else {
       Request.findAll({
         where: { id: id },
@@ -44,7 +48,7 @@ const findRequest = (id) => {
           await res(response);
         })
         .catch((err) => {
-          rejc({ status: 400, message: "no se pudo encontrar los pedidos" });
+          rejc({ status: 400, message: "Request could not be found" });
         });
     }
   });
@@ -56,16 +60,20 @@ const updateRequest = (id, data) => {
       Request.update({ status: data.status }, { where: { id: id } })
         .then((response) => {
           if (response[0] === 1) {
-            res("Estado de el pedido actualizado");
+            res("Updated order status");
           } else {
-            rejc({ status: 400, message: "No se Pudo actualizar tu pedido." });
+            rejc({ status: 400, message: "Could not update your request." });
           }
         })
         .catch((err) => {
-          rejc({ status: 500, message: "intente de nuevo mas tarde." });
+          rejc({
+            status: 500,
+            message:
+              "Sorry, the server has presented an error. Try again later",
+          });
         });
     } else {
-      rejc({ status: 400, message: "Campos no validos" });
+      rejc({ status: 400, message: "Invalid fields" });
     }
   });
 };
@@ -75,15 +83,15 @@ const deleteRequest = (id) => {
     Request.destroy({ where: { id: id } })
       .then((response) => {
         if (response === 1) {
-          res("request eliminado");
+          res("request deleted");
         } else {
-          rejc({ status: 400, message: "el request no existe" });
+          rejc({ status: 400, message: "The request does not exist" });
         }
       })
       .then((err) => {
         rejc({
           status: 500,
-          message: "Problema interno, por favor intente mas tarde",
+          message: "Sorry, the server has presented an error. Try again later",
         });
       });
   });

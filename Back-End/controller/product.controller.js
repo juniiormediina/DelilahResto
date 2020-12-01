@@ -7,7 +7,10 @@ const createProduct = (data) => {
         res(response);
       })
       .catch((err) => {
-        rejc({ status: 500, message: "Intentalo nuevamente" });
+        rejc({
+          status: 500,
+          message: "Sorry, the server has presented an error. Try again later",
+        });
       });
   });
 };
@@ -15,14 +18,18 @@ const createProduct = (data) => {
 const findProducts = (id) => {
   return new Promise((res, rejc) => {
     if (!id) {
-      rejc({ status: 400, message: "Falta el id, por favor ingreselo" });
+      rejc({ status: 400, message: "Please fill all fields" });
     } else {
       Product.findAll({ where: { id: id } })
         .then(async (response) => {
           await res(response);
         })
         .catch((err) => {
-          rejc({ status: 500, message: "vuelva a intentarlo luego" });
+          rejc({
+            status: 500,
+            message:
+              "Sorry, the server has presented an error. Try again later",
+          });
         });
     }
   });
@@ -33,16 +40,19 @@ const updateProducts = (id, data) => {
     Product.update(data, { where: { id: id } })
       .then((response) => {
         if (response[0] === 1) {
-          res("Producto actualizado");
+          res("Updated product");
         } else {
           rejc({
             status: 400,
-            message: "No se pudo actualizar la informacion del producto",
+            message: "Product information could not be updated",
           });
         }
       })
       .catch((err) => {
-        rejc({ status: 500, message: "vuelva a intentarlo luego" });
+        rejc({
+          status: 500,
+          message: "Sorry, the server has presented an error. Try again later",
+        });
       });
   });
 };
@@ -52,18 +62,18 @@ const deleteProducts = (id) => {
     Product.destroy({ where: { id: id } })
       .then((response) => {
         if (response === 1) {
-          res("producto eliminado");
+          res("product removed");
         } else {
           rejc({
             status: 400,
-            message: "el producto no existe, por favor verifique",
+            message: "the product does not exist, please check",
           });
         }
       })
       .then((err) => {
         rejc({
           status: 500,
-          message: "Problema interno, por favor intente mas tarde",
+          message: "Sorry, the server has presented an error. Try again later",
         });
       });
   });

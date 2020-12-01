@@ -57,7 +57,7 @@ const signIn = (email, password) => {
           })
         );
       } else {
-        rejc({ status: 401, message: `Invalid password o user` });
+        rejc({ status: 401, message: Invalid 'password or email' });
       }
     }
   });
