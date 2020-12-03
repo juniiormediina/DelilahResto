@@ -13,7 +13,7 @@ const {
 
 const Request = require("../models/Request.model");
 
-router.post("/CreateRequest", authentication, authorization, (req, res) => {
+router.post("/CreateRequest", authentication, (req, res) => {
   let data = req.body;
   data.request_date = new Date();
   data.status = "nuevo";
@@ -26,7 +26,7 @@ router.post("/CreateRequest", authentication, authorization, (req, res) => {
     });
 });
 
-router.get("/requests", authentication, authorization, (__, res) => {
+router.get("/requests", authentication, (__, res) => {
   Request.findAll()
     .then((requests) => {
       res.status(200).json(requests);
@@ -36,7 +36,7 @@ router.get("/requests", authentication, authorization, (__, res) => {
     });
 });
 
-router.get("/findRequest/:id", authentication, authorization, (req, res) => {
+router.get("/findRequest/:id", authentication, (req, res) => {
   let id = req.params.id;
   findRequest(id).then((response) => {
     res.status(200).json(response);

@@ -6,7 +6,7 @@ const authentication = require("../middlewares/authentication.middleware");
 
 const find = require("../controller/Order.controller");
 
-router.get("/find", authentication, authorization, (req, res) => {
+router.get("/find", authentication, (req, res) => {
   find(req, res);
 });
 

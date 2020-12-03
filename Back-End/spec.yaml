@@ -12,7 +12,7 @@ info:
     url: https://github.com/juniiormediina/DelilahResto/blob/master/LICENSE
   version: 1.0.0
 servers:
-- url: http://localhost:3000/
+- url: http://localhost:3000/api
 tags:
 - name: Create User
   description: Everything about your Pets
@@ -41,7 +41,7 @@ tags:
 - name: Get Orders
   description: Operations about user
 paths:
-  /singup:
+  /users/singup:
     post:
       tags:
       - Create User
@@ -56,29 +56,27 @@ paths:
         required: true
       responses:
         200:
-          description: Nos da como resultado los datos del usuario creado
+          description: Gives us as an answer
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Create_User' 
         400:
-          description: Este email ya esta registrado, Si ya se encuentra registrado
-            por favor intente iniciar sesion
+          description: The email already exists
         406:
-          description: Faltan campos por rellenar, por favor envie todos los campos
-            requeridos
+          description: Please fill all fields
         500:
-          description: Tenemos un problema interno, Intento de nuevo mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /login:
+  /users/signin:
     post:
       tags:
       - Login User
-      summary: Ingreso para usuarios registrados
+      summary: Enter the registered email and password
       operationId: loginUser
       requestBody:
-        description: Ingresar el email y constraseña registrado
+        description: Enter the registered email and password
         content:
           application/json:
             schema:
@@ -86,28 +84,28 @@ paths:
         required: true
       responses:
         200:
-          description: Nos devuelve el JWT de acceso del user
+          description: It returns the user access JWT
           content:
             application/json:
               schema:
                 example: '"yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSnVuaW9yIiwibGFzdG5hbWUiOiJNZWRpbmEiLCJwaG9uZSI6IjMxNzI5MjIyNzUiLCJhZGRyZXNzIjoiY2wgMSAjIDIgLSAzMCIsImVtWlsIjoianVuaW9yQGdtYWlsLmNvbSIsInBhc3MiOiIxMjM0Iiwicm9sIjoiYWRtaW4iLCJpYXQiOjE2MDQwMjkzNzJ9.Xcpmu_WqlUsr1DXQHt0y0fynDkj7wjTFzpjo78GiDS8asda"'
         400:
-          description: el usuario con email ENVIADO no existe
+          description: the user with the email sent does not exist
         401:
-          description: Usuario o contraseña invalidos
+          description: Invalid password or email
         406:
           description: Faltan campos por rellenar, por favor envie todos los campos
             requeridos
       security:
       - bearerAuth: []
-  /createProducts:
+  /products/createProducts:
     post:
       tags:
       - Create Product
-      summary: Crear un nuevo producto
+      summary: Create a new product
       operationId: createProduct
       requestBody:
-        description: Ingrese los datos requeridos para crear un producto
+        description: Enter the required data to create a product
         content:
           application/json:
             schema:
@@ -115,23 +113,20 @@ paths:
         required: true
       responses:
         200:
-          description: Nos da como resultado los datos del producto creado
+          description: It gives us the data of the product created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Create_Product'
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
-        403:
-          description: Debes tener permisos de administrador para realizar esta petición
+          description: You don't have profiles of administrator to continue with this action
         406:
-          description: Por favor llene todos los campos
+          description: Please fill all fields
         500:
-          description: Poseemos problemas, por favor intenta mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /findProducts/{productId}:
+  /products/findProducts/{productId}:
     get:
       tags:
       - Find Products by ID
@@ -146,7 +141,7 @@ paths:
           type: integer
       responses:
         200:
-          description: Responde un objeto con los datos del producto buscado
+          description: Answer an object with the data of the searched product
           content:
             application/json:
               schema:
@@ -155,11 +150,11 @@ paths:
           description: Product not found
       security:
       - bearerAuth: []
-  /updateProducts/{productId}:
+  /products/updateProducts/{productId}:
     put:
       tags:
       - Update Products by ID
-      summary: Actualizar producto por ID
+      summary: Update product by ID
       operationId: updateProduct
       parameters:
       - name: productId
@@ -177,24 +172,21 @@ paths:
         required: true 
       responses:
         200:
-          description: La respuesta es la confirmacion de que el producto ha sido actualizado
+          description: The answer is the confirmation that the product has been updated
           content:
             application/json:
               schema:
-                example: "Producto actualizado"
+                example: "Updated product"
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: You don't have profiles of administrator to continue with this action
           content: {}
-        403:
-          description: Debes tener permisos de administrador para realizar esta petición
         404:
-          description: Datos no encontrados, no se Pudo actualizar el producto.
+          description: the product does not exist, please check
         500:
-          description: intente de nuevo mas tarde.
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /deletePoducts/{productId}:
+  /products/deletePoducts/{productId}:
     delete:
       tags:
       - Delete Products by ID
@@ -222,10 +214,10 @@ paths:
         404:
           description: Producto no encontrado, por favor verifique
         500:
-          description: Poseemos problemas, por favor intenta mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /productsList:
+  /products/productsList:
     get:
       tags:
       - Get Products
@@ -245,7 +237,7 @@ paths:
           description: Error interno
       security:
       - bearerAuth: []
-  /CreateRequest:
+  /request/CreateRequest:
     post:
       tags:
       - Create Request
@@ -273,10 +265,10 @@ paths:
         406:
           description: Campos enviados no válidos
         500:
-          description: Error interno, no se pudo crear la orden
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /findRequest/{requestId}:
+  /request/findRequest/{requestId}:
     get:
       tags:
       - Find Requests by ID
@@ -306,10 +298,10 @@ paths:
         406:
           description: Campos no validos
         500:
-          description: Por favor intente mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /updateRequest/{requestId}:
+  /request/updateRequest/{requestId}:
     put:
       tags:
       - Update Requests by ID
@@ -339,10 +331,10 @@ paths:
         406:
           description: Campos ingresados no validos
         500:
-          description: Por favor intente mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /deleteRequest/{requestId}:
+  /request/deleteRequest/{requestId}:
     delete:
       tags:
       - Delete Requests by ID
@@ -370,10 +362,10 @@ paths:
         404:
           description: Pedido no encontrado, por favor verifique
         500:
-          description: Poseemos problemas, por favor intenta mas tarde
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /requests:
+  /request/requests:
     get:
       tags:
       - Get Requests
@@ -390,10 +382,10 @@ paths:
           description: Debes ingresar con tu usuario y contraseña para utilizar este
             servicio
         500:
-          description: Error interno
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
-  /orders:
+  /order/orders:
     get:
       tags:
       - Get Orders
@@ -410,7 +402,7 @@ paths:
           description: Debes ingresar con tu usuario y contraseña para utilizar este
             servicio
         500:
-          description: Error interno
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
 components:
@@ -428,9 +420,9 @@ components:
           type: string
         email:
           type: string
-        pass:
+        password:
           type: string
-        rol:
+        profile:
           type: string
     Login_User:
       type: object

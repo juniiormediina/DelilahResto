@@ -21,7 +21,7 @@ const signUp = async (data) => {
           rejc({
             status: 500,
             message:
-              "Sorry, the server has presented an error. Try again later 1",
+              "Sorry, the server has presented an error. Try again later",
           });
         } else {
           data.password = hash;
@@ -33,7 +33,7 @@ const signUp = async (data) => {
               rejc({
                 status: 500,
                 message:
-                  "Sorry, the server has presented an error. Try again later 2",
+                  "Sorry, the server has presented an error. Try again later",
               });
             });
         }
@@ -57,7 +57,7 @@ const signIn = (email, password) => {
           })
         );
       } else {
-        rejc({ status: 401, message: Invalid 'password or email' });
+        rejc({ status: 401, message: "Invalid password or email" });
       }
     }
   });

@@ -34,7 +34,7 @@ router.get("/productsList", authentication, (__, res) => {
     });
 });
 
-router.get("/findProducts/:id", authentication, authorization, (req, res) => {
+router.get("/findProducts/:id", authentication, (req, res) => {
   let id = req.params.id;
   findProducts(id).then((response) => {
     res.status(200).json(response);
