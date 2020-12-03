@@ -32,15 +32,23 @@ router.get("/requests", authentication, (__, res) => {
       res.status(200).json(requests);
     })
     .catch((err) => {
-      res.status(500);
+      res
+        .status(500)
+        .json("Sorry, the server has presented an error. Try again later");
     });
 });
 
 router.get("/findRequest/:id", authentication, (req, res) => {
   let id = req.params.id;
-  findRequest(id).then((response) => {
-    res.status(200).json(response);
-  });
+  findRequest(id)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json("Sorry, the server has presented an error. Try again later");
+    });
 });
 
 router.put("/updateRequest/:id", authentication, authorization, (req, res) => {

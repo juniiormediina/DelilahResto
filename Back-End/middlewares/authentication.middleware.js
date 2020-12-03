@@ -9,7 +9,7 @@ const authentication = (req, res, next) => {
   let token = authorization.split(" ")[1];
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      res.status(400).json("User can not verify");
+      res.status(401).json("User can not verify");
     }
     req.profile = decoded;
     next();

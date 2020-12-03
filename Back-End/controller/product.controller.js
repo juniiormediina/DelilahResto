@@ -18,7 +18,7 @@ const createProduct = (data) => {
 const findProducts = (id) => {
   return new Promise((res, rejc) => {
     if (!id) {
-      rejc({ status: 400, message: "Please fill all fields" });
+      rejc({ status: 406, message: "Please fill all fields" });
     } else {
       Product.findAll({ where: { id: id } })
         .then(async (response) => {
@@ -43,7 +43,7 @@ const updateProducts = (id, data) => {
           res("Updated product");
         } else {
           rejc({
-            status: 400,
+            status: 404,
             message: "Product information could not be updated",
           });
         }
@@ -62,10 +62,10 @@ const deleteProducts = (id) => {
     Product.destroy({ where: { id: id } })
       .then((response) => {
         if (response === 1) {
-          res("product removed");
+          res("Product removed");
         } else {
           rejc({
-            status: 400,
+            status: 404,
             message: "the product does not exist, please check",
           });
         }

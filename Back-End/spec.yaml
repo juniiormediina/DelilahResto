@@ -1,9 +1,7 @@
 openapi: 3.0.1
 info:
   title: Delilah Restó
-  description: Backend para un sistema de pedidos online para un restaurante poniendo
-    en funcionamiento las partes necesarias para montar una REST API que permita realizar
-    operaciones CRUD sobre una estructura de datos.
+  description: Backend for an online ordering system for a restaurant putting into operation the necessary parts to set up a REST API that allows CRUD operations on a data structure.
   termsOfService: http://swagger.io/terms/
   contact:
     email: juniiormediina@gmail.com
@@ -15,31 +13,31 @@ servers:
 - url: http://localhost:3000/api
 tags:
 - name: Create User
-  description: Everything about your Pets
+  description: Operations about users
 - name: Login User
-  description: Access to Petstore orders
+  description: Operations about users
 - name: Create Product
-  description: Operations about user
-- name: Find Products by ID
-  description: Operations about user
-- name: Update Products by ID
-  description: Operations about user
-- name: Delete Products by ID
-  description: Operations about user
+  description: Operations about Products
 - name: Get Products
-  description: Operations about user
+  description: Operations about Products
+- name: Find Products by ID
+  description: Operations about Products
+- name: Update Products by ID
+  description: Operations about Products
+- name: Delete Products by ID
+  description: Operations about Products
 - name: Create Request
-  description: Operations about user
-- name: Find Requests by ID
-  description: Operations about user
-- name: Update Requests by ID
-  description: Operations about user
-- name: Delete Requests by ID
-  description: Operations about user
+  description: Operations about Requests
 - name: Get Requests
-  description: Operations about user
+  description: Operations about Requests
+- name: Find Requests by ID
+  description: Operations about Requests
+- name: Update Requests by ID
+  description: Operations about Requests
+- name: Delete Requests by ID
+  description: Operations about Requests
 - name: Get Orders
-  description: Operations about user
+  description: Operations about Orders
 paths:
   /users/singup:
     post:
@@ -89,13 +87,10 @@ paths:
             application/json:
               schema:
                 example: '"yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RuYW1lIjoiSnVuaW9yIiwibGFzdG5hbWUiOiJNZWRpbmEiLCJwaG9uZSI6IjMxNzI5MjIyNzUiLCJhZGRyZXNzIjoiY2wgMSAjIDIgLSAzMCIsImVtWlsIjoianVuaW9yQGdtYWlsLmNvbSIsInBhc3MiOiIxMjM0Iiwicm9sIjoiYWRtaW4iLCJpYXQiOjE2MDQwMjkzNzJ9.Xcpmu_WqlUsr1DXQHt0y0fynDkj7wjTFzpjo78GiDS8asda"'
-        400:
-          description: the user with the email sent does not exist
         401:
           description: Invalid password or email
         406:
-          description: Faltan campos por rellenar, por favor envie todos los campos
-            requeridos
+          description: Please fill all fields
       security:
       - bearerAuth: []
   /products/createProducts:
@@ -118,10 +113,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Create_Product'
-        401:
+        400:
           description: You don't have profiles of administrator to continue with this action
-        406:
-          description: Please fill all fields
+        401:
+          description: User can not verify
+        403:
+          description: No Token provided
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -146,8 +143,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Create_Product'
-        404:
-          description: Product not found
+        401:
+          description: User can not verify
+        403:
+          description: No Token provided
+        406:
+          description: Please fill all fields
+        500:
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
   /products/updateProducts/{productId}:
@@ -177,11 +180,16 @@ paths:
             application/json:
               schema:
                 example: "Updated product"
-        401:
+        400:
           description: You don't have profiles of administrator to continue with this action
-          content: {}
+        401:
+          description: User can not verify
+        403:
+          description: No Token provided
         404:
-          description: the product does not exist, please check
+          description: Product information could not be updated
+        406:
+          description: Please fill all fields
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -190,29 +198,30 @@ paths:
     delete:
       tags:
       - Delete Products by ID
-      summary: Eliminar un producto por ID
+      summary: Delete a product by ID
       operationId: deleteProduct
       parameters:
       - name: productId
         in: path
-        description: Id del producto a eliminar
+        description: Product ID to remove
         required: true
         schema:
           type: integer
       responses:
         200:
-          description: La respuesta es la confirmacion de que el producto ha sido eliminado satisfactoriamente
+          description: The answer is the confirmation that the product has been removed successfully.
           content:
             application/json:
               schema:
-                example: '"Producto Eliminado"'
+                example: '"Product removed"'
+        400:
+          description: You don't have profiles of administrator to continue with this action
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: User can not verify
         403:
-          description: Debes tener permisos de administrador para realizar esta petición
+          description: No Token provided
         404:
-          description: Producto no encontrado, por favor verifique
+          description: the product does not exist, please check
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -221,30 +230,31 @@ paths:
     get:
       tags:
       - Get Products
-      summary: Obtener una lista de los productos registrados
+      summary: Get a list of registered products
       operationId: getProductList
       responses:
         200:
-          description: Consulta exitosa
+          description: Successful consultation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Create_Product'
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: No Token provided
+        403:
+          description: User can not verify
         500:
-          description: Error interno
+          description: Sorry, the server has presented an error. Try again later
       security:
       - bearerAuth: []
   /request/CreateRequest:
     post:
       tags:
       - Create Request
-      summary: Crear un pedido
+      summary: Create an request
       operationId: getOrderById
       requestBody:
-        description: Es neceario el envio de los datos requeridos
+        description: It is necessary to send the required data
         content:
           application/json:
             schema:
@@ -252,18 +262,19 @@ paths:
         required: true
       responses:
         200:
-          description: Nos trae como respuesta el resultado del pedido creado
+          description: It brings us as a response the result of the order created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Response_Create_Request'
-        400:
-          description: Usuario no se pudo verificar
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: User can not verify
+        403:
+          description: No Token provided
+        404:
+          description: The request could not be created
         406:
-          description: Campos enviados no válidos
+          description: Please fill all fields
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -272,31 +283,30 @@ paths:
     get:
       tags:
       - Find Requests by ID
-      summary: Actualizar el estado de un pedido
+      summary: Update the status of an request
       operationId: FindRequestById
       parameters:
       - name: requestId
         in: path
-        description: Id del pedido a actualizar
+        description: ID of the request to update
         required: true
         schema:
           type: integer
       responses:
         200:
-            description: Responde un objeto con los datos del producto buscado
+            description: Answer an object with the data of the searched request
             content:
               application/json:
                 schema:
                   $ref: '#/components/schemas/Create_Request'
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: User can not verify
         403:
-          description: Debes tener permisos de administrador para realizar esta petición
+          description: No Token provided
         404:
-          description: Datos no encontrados, no se pudo actualizar tu pedido.
+          description: Request could not be found
         406:
-          description: Campos no validos
+          description: Please fill all fields
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -305,31 +315,32 @@ paths:
     put:
       tags:
       - Update Requests by ID
-      summary: Actualizar el estado de un pedido
+      summary: Update the status of an request
       operationId: updateRequest
       parameters:
       - name: requestId
         in: path
-        description: Id del pedido a actualizar
+        description: ID of the request to update
         required: true
         schema:
           type: integer
       responses:
         200:
-          description: La respuesta es la confirmacion de que el pedido ha sido actualizado
+          description: The response is the confirmation that the request has been updated
           content:
             application/json:
               schema:
-                example: "Pedido actualizado"
+                example: "Updated request status"
+        400:
+          description: You don't have profiles of administrator to continue with this action
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: User can not verify
         403:
-          description: Debes tener permisos de administrador para realizar esta petición
+          description: No Token provided
         404:
-          description: Datos no encontrados, no se pudo actualizar tu pedido.
+          description: Could not update your request.
         406:
-          description: Campos ingresados no validos
+          description: Please fill all fields
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -338,29 +349,30 @@ paths:
     delete:
       tags:
       - Delete Requests by ID
-      summary: Eliminar un pedido por ID
+      summary: Delete an request by ID
       operationId: deleteRequest
       parameters:
       - name: requestId
         in: path
-        description: Id del pedido a eliminar
+        description: request ID to delete
         required: true
         schema:
           type: integer
       responses:
         200:
-          description: Pedido eliminado satisfactoriamente
+          description: Request removed successfully
           content:
             application/json:
               schema:
-                example: '"Pedido eliminado"'
+                example: '"Request removed"'
+        400:
+          description: You don't have profiles of administrator to continue with this action
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: User can not verify
         403:
-          description: Debes tener permisos de administrador para realizar esta petición
+          description: No Token provided
         404:
-          description: Pedido no encontrado, por favor verifique
+          description: The request does not exist
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -369,18 +381,19 @@ paths:
     get:
       tags:
       - Get Requests
-      summary: obtener todos los pedidosrealizados
+      summary: Get all orders placed
       operationId: getRequest
       responses:
         200:
-          description: Nos responde un objeto que contiene todos los pedidos generados
+          description: We are answered by an object that contains all the generated orders
           content:
             application/json:
               schema:
                 type: object
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: No Token provided
+        403:
+          description: User can not verify
         500:
           description: Sorry, the server has presented an error. Try again later
       security:
@@ -389,18 +402,19 @@ paths:
     get:
       tags:
       - Get Orders
-      summary: Logs out current logged in user session
+      summary: Get all the orders
       operationId: logoutUser
       responses:
         200:
-          description: nos responde un objeto con todos las ordenes generadas
+          description: An object responds to us with all the orders generated
           content:
             application/json:
               schema:
                 type: object
         401:
-          description: Debes ingresar con tu usuario y contraseña para utilizar este
-            servicio
+          description: No Token provided
+        403:
+          description: User can not verify
         500:
           description: Sorry, the server has presented an error. Try again later
       security:

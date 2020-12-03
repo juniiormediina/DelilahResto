@@ -17,7 +17,7 @@ const createRequest = (data) => {
             res(request);
           } catch (err) {
             await Request.destroy({ where: { id: request.id } });
-            rejc({ status: 500, message: "The request could not be created" });
+            rejc({ status: 404, message: "The request could not be created" });
           }
         })
         .catch((err) => {
@@ -28,7 +28,7 @@ const createRequest = (data) => {
           });
         });
     } else {
-      rejc({ status: 400, message: "Invalid fields" });
+      rejc({ status: 406, message: "Please fill all fields" });
     }
   });
 };
@@ -36,7 +36,7 @@ const createRequest = (data) => {
 const findRequest = (id) => {
   return new Promise((res, rejc) => {
     if (!id) {
-      rejc({ status: 400, message: "Please fill all fields" });
+      rejc({ status: 406, message: "Please fill all fields" });
     } else {
       Request.findAll({
         where: { id: id },
@@ -48,7 +48,7 @@ const findRequest = (id) => {
           await res(response);
         })
         .catch((err) => {
-          rejc({ status: 400, message: "Request could not be found" });
+          rejc({ status: 404, message: "Request could not be found" });
         });
     }
   });
@@ -60,9 +60,9 @@ const updateRequest = (id, data) => {
       Request.update({ status: data.status }, { where: { id: id } })
         .then((response) => {
           if (response[0] === 1) {
-            res("Updated order status");
+            res("Updated request status");
           } else {
-            rejc({ status: 400, message: "Could not update your request." });
+            rejc({ status: 404, message: "Could not update your request." });
           }
         })
         .catch((err) => {
@@ -73,7 +73,7 @@ const updateRequest = (id, data) => {
           });
         });
     } else {
-      rejc({ status: 400, message: "Invalid fields" });
+      rejc({ status: 406, message: "Please fill all fields" });
     }
   });
 };
@@ -85,7 +85,7 @@ const deleteRequest = (id) => {
         if (response === 1) {
           res("request deleted");
         } else {
-          rejc({ status: 400, message: "The request does not exist" });
+          rejc({ status: 404, message: "The request does not exist" });
         }
       })
       .then((err) => {
